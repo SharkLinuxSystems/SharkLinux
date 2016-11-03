@@ -5,7 +5,7 @@ SharkLinux can be tested/installed in a variety of ways. The recommended way rem
 
 ISO available at SharkLinux.ga
 Official vagrant box (currently only libvirt provider) 'vagrant init SharkLinux/SharkLinux; vagrant up --provider libvirt'
-# Note vagrant box is only base system and 'install sharklinux'  needs to be run for full OS install #
+~ Note vagrant box is only base system and 'install sharklinux'  needs to be run for full OS install ~ 
 
 
 ** DO NOT USE ON PRODUCTION SYSTEMS OR ANY SYSTEM THAT CANNOT BE EASILY RESTORED **
