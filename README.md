@@ -12,7 +12,7 @@ ___
 
 #### DO NOT USE ON PRODUCTION SYSTEMS OR ANY SYSTEM THAT CANNOT BE EASILY RESTORED
 
-If you intend to use this repo is is suggested to do so inside a VM, Cloud instance or LXD container. 
+If you intend to use this repo it is suggested to do so inside a VM, Cloud instance or LXD container. 
 SharkLinux is built over Ubuntu Xenial, however SharkLinux is NOT a variant or remix of Ubuntu and many fundamental system changes will occur during the build/install process. YOU HAVE BEEN WARNED.
 
 
