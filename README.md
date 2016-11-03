@@ -26,7 +26,7 @@ SharkLinux is built over Ubuntu Xenial, however SharkLinux is NOT a variant or r
 
 #### Ubuntu:
 
-`sudo apt install (packagename)`
+`sudo apt install <packagename>`
 
 `Are you sure (Y/n) Y`
 
@@ -52,33 +52,33 @@ ___
 
 ## HOW TO INSTALL USING REPO
 
-### for base system install
+### Base system install
 
-`git clone https://github.com/Shark-Linux/SharkLinux.git
+`git clone https://github.com/Shark-Linux/SharkLinux.git`
 
-cd SharkLinux
+`cd SharkLinux`
 
-sh shark.sh`
+`sh shark.sh`
 
 _(reboot may be needed for all changes to take effect)_
 
 
-### for full OS install;
+### Full OS install
 
-`git clone https://github.com/Shark-Linux/SharkLinux.git
+`git clone https://github.com/Shark-Linux/SharkLinux.git`
 
-cd SharkLinux
+`cd SharkLinux`
 
-sh sharklinux.sh
+`sh sharklinux.sh`
 
-sudo reboot`
+`sudo reboot`
 
 
 #### Expansion pack;
 
 (from within a full OS)
 
-run `pimpmyshark
+run `pimpmyshark`
 
 
 
