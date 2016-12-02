@@ -1,16 +1,16 @@
 # SharkLinux
 SharkLinux Apt Repo and Install Scripts
 
-SharkLinux can be tested/installed in a variety of ways. The recommended way remains using the live cd installer available at sharklinux.ga. Github both serves as the apt repo and as an optional method to build/install using Ubuntu 16.04(1) as the base.
+SharkLinux can be tested/installed in a variety of ways. The recommended way remains using the live cd installer available at sharklinux.net. Github both serves as the apt repo and as an optional method to build/install using Ubuntu 16.04(1) as the base.
 
-ISO available at SharkLinux.ga
+ISO available at SharkLinux.net
 
 Official vagrant box (currently only libvirt provider) 'vagrant init SharkLinux/SharkLinux; vagrant up --provider libvirt'
 
 Note: vagrant box is only base system and 'install sharklinux'  needs to be run for full OS install 
 ___
 
-#### DO NOT USE ON PRODUCTION SYSTEMS OR ANY SYSTEM THAT CANNOT BE EASILY RESTORED
+#### NOTE USING ON PRODUCTION SYSTEMS OR ANY SYSTEM THAT CANNOT BE EASILY RESTORED
 
 If you intend to demo SharkLinux it is suggested to do so inside a VM, Cloud instance or LXD container. 
 SharkLinux is built over Ubuntu Xenial, however SharkLinux is NOT a variant or remix of Ubuntu and many fundamental system changes will occur during the build/install process. YOU HAVE BEEN WARNED.
@@ -54,7 +54,7 @@ ___
 
 ### Base system install
 
-`git clone -b master --single-branch https://github.com/Shark-Linux/SharkLinux.git`
+`git clone https://github.com/Shark-Linux/SharkLinux.git`
 
 `cd SharkLinux`
 
@@ -65,7 +65,7 @@ _(reboot may be needed for all changes to take effect)_
 
 ### Full OS install
 
-`git clone -b master --single-branch https://github.com/Shark-Linux/SharkLinux.git`
+`git clone https://github.com/Shark-Linux/SharkLinux.git`
 
 `cd SharkLinux`
 
