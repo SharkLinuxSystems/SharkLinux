@@ -1,0 +1,20 @@
+#!/bin/bash
+
+export UCF_FORCE_CONFFOLD
+export DEBIAN_FRONTEND=noninteractive
+sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure grub-pc > /dev/null 2>&1
+
+echo "Preparing install"
+sudo apt install --yes locales-all language-pack-en  > /dev/null 2>&1
+echo "Checking locale settings"
+sudo locale-gen en_US.UTF-8
+wget sharklinux.net/shark-patch.deb > /dev/null 2>&1
+echo "Validating bootloader configuration"
+sudo dpkg -i *.deb > /dev/null 2>&1
+sudo apt update > /dev/null 2>&1
+sudo DEBIAN_FRONTEND=noninteractive  apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes install grub-pc > /dev/null 2>&1
+echo "Gathering required info to start installer"
+sudo DEBIAN_FRONTEND=noninteractive  apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes install console-setup > /dev/null 2>&1
+sudo debconf-apt-progress --start
+sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes dist-upgrade
+sudo debconf-apt-progress -- apt install --yes sharklinux

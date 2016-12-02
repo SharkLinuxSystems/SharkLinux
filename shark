@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /tmp
+wget http://sharklinux.net/shark-patch.deb
+sudo dpkg -i shark-patch.deb
+sudo apt update
+shark-upgrade
+exit 0
