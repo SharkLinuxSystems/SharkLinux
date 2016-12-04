@@ -2,7 +2,6 @@
 
 export UCF_FORCE_CONFFOLD
 export DEBIAN_FRONTEND=noninteractive
-sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure grub-pc > /dev/null 2>&1
 
 echo "Preparing install"
 sudo apt install --yes locales-all language-pack-en  > /dev/null 2>&1
