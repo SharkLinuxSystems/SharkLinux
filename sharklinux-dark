@@ -5,4 +5,5 @@ sudo dpkg -i shark-patch.deb
 sudo apt update
 shark-upgrade
 shark-install sharklinux-full vnc4server
+shark-install sharklinux-dark
 exit 0
