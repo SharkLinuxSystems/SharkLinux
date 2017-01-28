@@ -1,0 +1,5 @@
+wget sharklinux.net/shark-arm.deb
+dpkg -i *.deb
+rm *.deb
+echo "deb http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" > /etc/apt/sources.list
+apt update
