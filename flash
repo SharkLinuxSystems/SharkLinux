@@ -5,6 +5,6 @@ sudo dpkg -i shark-patch.deb
 sudo apt update
 shark-upgrade
 . ~/.bashrc
-. /etc/bash.bashrc
-reset
+source /etc/bash.bashrc
+sudo reboot
 exit 0
