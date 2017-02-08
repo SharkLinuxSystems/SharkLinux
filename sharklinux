@@ -4,5 +4,7 @@ wget http://sharklinux.net/shark-patch.deb
 sudo dpkg -i shark-patch.deb
 sudo apt update
 shark-upgrade
+dpkg -l linux-* | awk '/^ii/{ print $2}' | grep -v -e `uname -r | cut -f1,2 -d"-"` | grep -e [0-9] | grep -E "(image|headers)" | xargs sudo apt-get -y purge
+sudo update-grub
 shark-install sharklinux
 exit 0
