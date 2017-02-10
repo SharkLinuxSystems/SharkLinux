@@ -1,7 +1,6 @@
 #!/bin/bash
 cd /tmp
-wget http://sharklinux.net/shark-patch.deb
-sudo dpkg -i shark-patch.deb
-sudo apt update
-shark-upgrade
+wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /dev/null 2>&1
+chmod +x syspatch
+./syspatch
 exit 0
