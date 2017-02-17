@@ -4,4 +4,5 @@ wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /
 chmod +x syspatch
 ./syspatch
 shark-install sharklinux-full vnc4server
+shark-install apt-reset && sudo apt remove -y apt-reset
 exit 0
