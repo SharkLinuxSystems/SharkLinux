@@ -1,4 +1,5 @@
-sudo apt install --yes apache2
+mv lamp /tmp
+sudo apt install --yes apache2 unzip
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password toor'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password toor'
 sudo apt-get -y install mysql-server
