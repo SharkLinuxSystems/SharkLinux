@@ -1,0 +1,31 @@
+mv lamp.zip /tmp
+mv lamp /tmp
+sudo apt install --yes apache2
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password toor'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password toor'
+sudo apt-get -y install mysql-server
+mysql -uroot -ptoor -e "create database wordpress;"
+sudo apt --yes install php7.0 php-pear libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-json php7.0-cgi
+cd /tmp
+cat > module <<EOF
+<IfModule mod_dir.c>
+    DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+EOF
+sudo apt install -y pagekite
+sudo systemctl restart apache2
+sudo chmod 777 -R /var/www
+sudo rm /var/www/html/index.html
+cd /tmp
+echo "Installing Wordpress"
+wget https://wordpress.org/latest.zip > /dev/null 2>&1
+unzip latest.zip > /dev/null 2>&1
+cd wordpress
+sudo mv ./* /var/www/html
+reset
+echo "Wordpress Install Complete!"
+cd ~/
+wget -O server.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
+unzip server.zip > /dev/null 2>&1
+mv server.zip /tmp
+./ngrok http 80
