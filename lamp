@@ -6,11 +6,11 @@ sudo apt-get -y install mysql-server
 mysql -uroot -ptoor -e "create database wordpress;"
 sudo apt --yes install php7.0 php-pear libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-json php7.0-cgi
 cd /tmp
-cat > module <<EOF
-<IfModule mod_dir.c>
-    DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
-</IfModule>
-EOF
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/dbconfig-install boolean true'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/app-password-confirm password toor'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/admin-pass password toor'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/app-pass password toor'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2'﻿
 sudo apt install -y pagekite phpmyadmin php-mbstring php-gettext
 sudo systemctl restart apache2
 sudo chmod 777 -R /var/www
@@ -22,9 +22,10 @@ unzip latest.zip > /dev/null 2>&1
 cd wordpress
 sudo mv ./* /var/www/html
 reset
-echo "Wordpress Install Complete!"
+echo "LAMP Server, phpmyadmin and Wordpress Install Complete!"
 cd ~/
 wget -O server.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
 unzip server.zip > /dev/null 2>&1
 mv server.zip /tmp
 sudo mv ngrok /usr/bin
+sudo chown www-data -R /var/www
