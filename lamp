@@ -11,7 +11,7 @@ cat > module <<EOF
     DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 </IfModule>
 EOF
-sudo apt install -y pagekite
+sudo apt install -y pagekite phpmyadmin php-mbstring php-gettext
 sudo systemctl restart apache2
 sudo chmod 777 -R /var/www
 sudo rm /var/www/html/index.html
@@ -27,4 +27,4 @@ cd ~/
 wget -O server.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
 unzip server.zip > /dev/null 2>&1
 mv server.zip /tmp
-./ngrok http 80
+sudo mv ngrok /usr/bin
