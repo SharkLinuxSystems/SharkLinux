@@ -63,120 +63,47 @@
 
 <p>Prefer to use a different program than what's included? Swap it out! SharkLinux makes software access a snap. App Grid offers an exceptional alternative to Ubuntu's native software centre, synatpic provides thousands of package options and to make life easier our repository is packed with applications normally only available by hunting down 3rd party sources.  </p>
 
-<hr>
+<h2><a name="releases" href="#releases">Releases</a></h2>
+<p>SharkLinux does not version it s releases, but rather is a rolling release distro and is frequently updated with new features and improvements. The officially released install media (ISO) is updated after any major changes, updates to the apt repositories and for each kernel release. Users who install in the cloud, using a fresh Ubuntu 16.04 instance and bootstrap installer will end up with the most current version possible.</p>
+<h1><a name="unique-features-and-policies" href="#unique-features-and-policies">Unique Features and Policies</a></h1>
+<h2><a name="software" href="#software">Software</a></h2>
+<p>SharkLinux has multiple qualities that make it unique from Ubuntu and other derivatives. Unlike Ubuntu and many variants, SharkLinux does not have a strict policy regarding software being exclusively open-source. The distribution maintains its own exclusive software repo, thus some software not offered in any official Ubuntu Repo are either included by default in official releases or easily installed via command line. Examples include Google Chrome and MEGASync. </p>
+<h2><a name="relaxed-application-of-sudo" href="#relaxed-application-of-sudo">Relaxed Application of Sudo</a></h2>
+<p>A fundamental and controversial difference is the removal of the sudo password. While sudo is still used to run commands with root power and distinguish admin from user accounts, a sudoer is only prompted for password during login. Some users enjoy the relaxed sudo policy while many consider this to be a significant security risk. As a result this change is reversible allowing a sysadmin to re-enable the default sudo behavior via the visudo command.</p>
+<h2><a name="simplified-commands" href="#simplified-commands">Simplified Commands</a></h2>
+<p>A unique command set is also available while using the terminal. These often combine existing commands into a single action or simply shortening the command for convenience. Some shortened commands also incorporate the relaxed sudo policy. Most notably the apt-based commands usually can be executed by calling on the action and omit the need of added arguments. Install, uninstall (remove), purge and search can be executed as single word arguments. Combinations are also used within the package manager. For instance, typing “upgrade” into the terminal both updates the apt cache and performs any available package upgrades. While there are many commands exclusive to SharkLinux, none of Ubuntu equivalents are disabled and any commands used in Ubuntu would work in SharkLinux. To illustrate the changes, some examples are provided below in comparison to the Ubuntu equivalent.</p>
+<table>
+<thead>
+<tr>
+<th>SharkLinux</th>
+<th>Ubuntu </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>install</td>
+<td>sudo apt –yes install </td>
+</tr>
+<tr>
+<td>uninstall</td>
+<td>sudo apt –yes remove </td>
+</tr>
+<tr>
+<td>upgrade</td>
+<td>sudo apt update &amp;&amp; sudo apt –yes upgrade</td>
+</tr>
+<tr>
+<td> clean</td>
+<td>sudo apt –yes autoremove &amp;&amp; sudo apt clean</td>
+</tr>
+</tbody>
+</table>
+<h2><a name="contact-information" href="#contact-information">Contact Information</a></h2>
+<p>Official Website: <a href="http://SharkLinux.net">http://SharkLinux.net</a></p>
+<p>Install Media and Tickets: <a href="http://www.sourceforge.net/p/sharklinux/">SharkLinux on Sourceforge</a></p>
+<p>E-mail: dev@sharklinux.net</p>
+<p>Launchpad ID: SharkLinux</p>
 
-<h2>
-<a id="how-do-i-install-sharklinux" class="anchor" href="#how-do-i-install-sharklinux" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How do I install SharkLinux?</h2>
-
-<p>SharkLinux can be tested/installed in a variety of ways. The recommended way remains using the live cd installer available at sharklinux.net. This repo both serves as a backup for the sharklinux debs not available anywhere else in the event the official apt repo is somehow lost and as an optional method to build/install using Ubuntu 16.04(1) as the base.</p>
-
-<h3>
-<a id="top-3-install-methods" class="anchor" href="#top-3-install-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Top 3 install methods</h3>
-
-<ul>
-<li>Official Live CD Installer -- <code>link at top of page</code>
-</li>
-<li>Vagrant Box VM image -- <code>SharkLinux/Sharklinux</code>
-</li>
-<li>Github Clone over Xenial Instance -- <code>instructions below</code>
-</li>
-</ul>
-
-<h4>
-<a id="quick-launch-inside-lxd-instance" class="anchor" href="#quick-launch-inside-lxd-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick launch inside LXD instance:</h4>
-
-<blockquote>
-<p>sudo lxc launch ubuntu: shark</p>
-
-<p>sudo lxc exec shark bash</p>
-
-<p>wget sharklinux.net/shark -O- | sh</p>
-</blockquote>
-
-<h5>
-<a id="note-lxd-does-not-support-the-expansion-pack-due-to-docker-engine" class="anchor" href="#note-lxd-does-not-support-the-expansion-pack-due-to-docker-engine" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note: LXD does not support the expansion pack due to docker engine.</h5>
-
-<hr>
-
-<h4>
-<a id="do-not-use-on-production-systems-or-any-system-that-cannot-be-easily-restored" class="anchor" href="#do-not-use-on-production-systems-or-any-system-that-cannot-be-easily-restored" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DO NOT USE ON PRODUCTION SYSTEMS OR ANY SYSTEM THAT CANNOT BE EASILY RESTORED</h4>
-
-<p>If you intend to use this repo it is suggested to do so inside a VM, Cloud instance or LXD container. 
-SharkLinux is built over Ubuntu Xenial, however SharkLinux is NOT a variant or remix of Ubuntu and many fundamental system changes will occur during the build/install process. YOU HAVE BEEN WARNED.</p>
-
-<h3>
-<a id="some-notable-differences" class="anchor" href="#some-notable-differences" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Some notable differences;</h3>
-
-<ul>
-<li>No sudo password. </li>
-<li>No sudo apt.</li>
-<li>Upstream/Dev repo enabled by default</li>
-<li>Many ubuntu-unsupported software (non-opensource, non-free etc)</li>
-</ul>
-
-<h3>
-<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
-
-<h4>
-<a id="ubuntu" class="anchor" href="#ubuntu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ubuntu:</h4>
-
-<p><code>sudo apt install &lt;packagename&gt;</code></p>
-
-<p><code>Are you sure (Y/n) Y</code></p>
-
-<p><code>enter sudo password for (user): password</code></p>
-
-<p><em>install begins.</em></p>
-
-<h4>
-<a id="sharklinux-1" class="anchor" href="#sharklinux-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SharkLinux:</h4>
-
-<p><code>install &lt;packagename&gt;</code></p>
-
-<p><em>install begins.</em></p>
-
-<hr>
-
-<h2>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REQUIREMENTS:</h2>
-
-<p>-A clean/fresh xenial base, single user, arch amd64.</p>
-
-<p>-for vagrant box you will need libvirt provider enabaled (vagrant-libvirt plugin, all libvirt/ruby deps installed)</p>
-
-<hr>
-
-<h2>
-<a id="how-to-install-using-repo" class="anchor" href="#how-to-install-using-repo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HOW TO INSTALL USING REPO</h2>
-
-<h3>
-<a id="base-system-install" class="anchor" href="#base-system-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Base system install</h3>
-
-<p><code>git clone https://github.com/Shark-Linux/SharkLinux.git</code></p>
-
-<p><code>cd SharkLinux</code></p>
-
-<p><code>sh shark.sh</code></p>
-
-<p><em>(reboot may be needed for all changes to take effect)</em></p>
-
-<h3>
-<a id="full-os-install" class="anchor" href="#full-os-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Full OS install</h3>
-
-<p><code>git clone https://github.com/Shark-Linux/SharkLinux.git</code></p>
-
-<p><code>cd SharkLinux</code></p>
-
-<p><code>sh sharklinux.sh</code></p>
-
-<p><code>sudo reboot</code></p>
-
-<h4>
-<a id="expansion-pack" class="anchor" href="#expansion-pack" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Expansion pack;</h4>
-
-<p>(from within a full OS)</p>
-
-<p>run <code>pimpmyshark</code></p>
       </section>
     </div>
 
