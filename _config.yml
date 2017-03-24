@@ -1,0 +1,8 @@
+title: SharkLinux
+description: Upstream. Elegant. Advanced.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-hacker
+
+gems:
+  - jekyll-mentions
