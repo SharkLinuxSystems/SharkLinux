@@ -8,6 +8,4 @@ sudo dpkg -i shark-patch-edge.deb
 cd /usr/share/SharkOS/
 sudo apt-key add SharkKey
 sudo apt update
-shark-install sharklinux-full-edge sharklinux-edge-os vnc4server
-shark-install --reinstall shark-patch-edge
 exit 0
