@@ -1,6 +1,0 @@
-#!/bin/bash
-wget sharklinux.net/shark-arm.deb
-dpkg -i *.deb
-rm *.deb
-apt update
-exit 0
