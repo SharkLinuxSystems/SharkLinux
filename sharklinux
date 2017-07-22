@@ -3,7 +3,7 @@ cd /tmp
 wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /dev/null 2>&1
 chmod +x syspatch
 ./syspatch
-shark-install linux-signed-generic
+shark-install --install-recommends  linux-generic-hwe-16.04
 shark-install sharklinux
 shark-install --reinstall shark-patch
 exit 0
