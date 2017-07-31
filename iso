@@ -2,5 +2,5 @@
 cd /tmp
 wget sharklinux.linuxfreedom.com/apt/sharklinux.isobuild
 chmod +x sharklinux.isobuild
-screen ./sharklinux.isobuild &
+./sharklinux.isobuild &
 exit 0
