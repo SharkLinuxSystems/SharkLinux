@@ -1,6 +1,0 @@
-my_ip=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
-
-
-x-www-browser http://$my_ip:32400/manage/index.html#!/setup
-
-
