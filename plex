@@ -1,0 +1,4 @@
+wget sharklinux.net/adam
+sudo dpkg -i adam
+plex
+
