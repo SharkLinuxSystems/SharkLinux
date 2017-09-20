@@ -1,14 +1,19 @@
 #!/bin/bash
-
-echo "Preparing install"
-sudo apt install --yes locales-all language-pack-en  > /dev/null 2>&1
-echo "Checking locale settings"
-sudo locale-gen en_US.UTF-8
-wget sharklinux.net/shark-patch.deb > /dev/null 2>&1
-sudo dpkg -i *.deb > /dev/null 2>&1
-echo "preping for package upgrades"
-shark-update
+cd /tmp
+wget http://sharklinuxos.com/shark-patch.deb
+sudo dpkg -i shark-patch.deb
+sudo apt update
+echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
+echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
+echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
+sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
+sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install apt-fast zsh
 shark-upgrade
+
 sudo apt update > /dev/null 2>&1
 sudo debconf-apt-progress --start
 sudo debconf-apt-progress -- apt install --yes sharklinux
+echo "exit 0" > /etc/rc.local
+reboot
+
