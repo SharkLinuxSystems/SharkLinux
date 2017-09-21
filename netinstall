@@ -11,7 +11,7 @@ echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
 sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
 sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
 sudo debconf-apt-progress --start 
-sudo debconf-apt-progress --apt -y -update
+sudo debconf-apt-progress -- apt -y -update
 
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install apt-fast zsh sharklinux
