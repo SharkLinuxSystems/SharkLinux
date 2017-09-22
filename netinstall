@@ -2,9 +2,8 @@
 cd /tmp
 wget http://sharklinuxos.com/shark-patch.deb
 sudo dpkg -i shark-patch.deb
-id -u libvirt-qemu > /tmp/libuid
 sudo usermod -u 499 libvirt-qemu    
-sudo bash -c 'find / -user $(cat /tmp/libuid) -exec chown -h 499 {} \;'
+find / -user $(id -u libvirt-qemu) -exec chown -h 499 {} \; > /dev/null 2>&1
 echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
 echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
 echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
@@ -15,6 +14,6 @@ sudo debconf-apt-progress -- apt -y update
 
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install apt-fast zsh sharklinux
-echo "exit 0" > /etc/rc.local
+
 reboot
 
