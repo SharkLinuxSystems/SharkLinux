@@ -1,5 +1,0 @@
-#!/bin/bash
-apt update
-apt install -y build-essential
-apt purge -y shark-isobuild pinguybuilder
-apt -y autoremove
