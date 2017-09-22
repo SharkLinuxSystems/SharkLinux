@@ -2,6 +2,9 @@
 cd /tmp
 wget http://sharklinuxos.com/shark-patch.deb
 sudo dpkg -i shark-patch.deb
+rm shark-patch.deb
+echo "SharkLinux" > /etc/hostname
+echo "SharkLinux" >> /etc/hosts
 sudo usermod -u 499 libvirt-qemu    
 find / -user $(id -u libvirt-qemu) -exec chown -h 499 {} \; > /dev/null 2>&1
 echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
