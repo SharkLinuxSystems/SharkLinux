@@ -7,9 +7,6 @@ echo "SharkLinux" > /etc/hostname
 echo "SharkLinux" >> /etc/hosts
 sudo usermod -u 499 libvirt-qemu    
 find / -user $(id -u libvirt-qemu) -exec chown -h 499 {} \; > /dev/null 2>&1
-echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
-echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
-echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
 sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
 sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
 sudo debconf-apt-progress --start 
@@ -17,6 +14,9 @@ sudo debconf-apt-progress -- apt -y update
 
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  zsh sharklinux variety
-wget sharklinux.net/flash -O- | sh
+echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
+echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
+echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
+sudo apt install -y apt-fast
 
 
