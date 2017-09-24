@@ -2,12 +2,14 @@
 
 sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
 sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
-sudo debconf-apt-progress --start 
-sudo debconf-apt-progress -- apt -y update
 
-sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  build-essential
+apt -y update
+apt -y  install  build-essential
+apt -y  purge shark-isobuild
+apt -y  autoremove
+echo "GRUB_GFXMODE=1024x768x32" >> /etc/default/grub
+echo "GRUB_GFXPAYLOAD_LINUX=keep" >> /etc/default/grub
+apt -y install linux-generic-hwe-16.04
+update-grub
 
-sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" purge shark-isobuild
-
-sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" autoremove
 
