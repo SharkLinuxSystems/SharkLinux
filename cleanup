@@ -8,6 +8,6 @@ sudo apt-get -y  purge shark-isobuild
 echo "GRUB_GFXMODE=1024x768x32" >> /etc/default/grub
 echo "GRUB_GFXPAYLOAD_LINUX=keep" >> /etc/default/grub
 sudo apt-get -y  install  build-essential
-sysclean
+sudo bash /usr/local/bin/sysclean
 
 
