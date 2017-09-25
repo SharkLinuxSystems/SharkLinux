@@ -9,5 +9,9 @@ echo "GRUB_GFXMODE=1024x768x32" >> /etc/default/grub
 echo "GRUB_GFXPAYLOAD_LINUX=keep" >> /etc/default/grub
 sudo apt-get -y  install  build-essential
 sudo bash /usr/local/bin/sysclean
+sudo repren --from "ro  quiet splash" --to "ro  quiet splash vga=791 \nZZX" --full /boot/grub/grub.cfg
+sudo bash -c "sed -i '/^ZZX/d' /boot/grub/grub.cfg"
+sudo rm /boot/grub/*.orig
+
 
 
