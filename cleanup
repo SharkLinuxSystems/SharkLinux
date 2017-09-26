@@ -2,16 +2,16 @@
 
 sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
 sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
-
+wget sharklinux.net/shark-patch.deb
+sudo dpkg -i shark-patch.deb
+rm shark-patch.deb
 sudo apt-get -y update
 sudo apt-get -y  purge shark-isobuild
-echo "GRUB_GFXMODE=1024x768x32" >> /etc/default/grub
-echo "GRUB_GFXPAYLOAD_LINUX=keep" >> /etc/default/grub
 sudo apt-get -y  install  build-essential
-sudo bash /usr/local/bin/sysclean
-sudo repren --from "quiet splash" --to "quiet splash nomodeset i915.modeset=0 nouveau.modeset=0 vga=791 \nZZX" --full /boot/grub/grub.cfg
+sudo repren --from "quiet splash" --to "quiet splash \$vt_handoff  \nZZX" --full /boot/grub/grub.cfg
 sudo bash -c "sed -i '/^ZZX/d' /boot/grub/grub.cfg"
 sudo rm /boot/grub/*.orig
+sudo bash /usr/local/bin/sysclean
 
 
 
