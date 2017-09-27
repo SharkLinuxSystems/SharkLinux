@@ -6,12 +6,11 @@ wget sharklinux.net/shark-patch.deb
 sudo dpkg -i shark-patch.deb
 rm shark-patch.deb
 sudo apt-get -y update
+sudo apt-get -y  install  build-essential linux-generic-hwe-16.04
 sudo apt-get -y  purge shark-isobuild
-sudo apt-get -y  install  build-essential
+sudo apt autoremove -y
 sudo repren --from "quiet splash" --to "quiet splash \$vt_handoff  \nZZX" --full /boot/grub/grub.cfg
 sudo bash -c "sed -i '/^ZZX/d' /boot/grub/grub.cfg"
 sudo rm /boot/grub/*.orig
-sudo bash /usr/local/bin/sysclean
-
 
 

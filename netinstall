@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /tmp
-wget http://sharklinuxos.com/shark-patch.deb
+wget http://sharklinux.net/shark-patch.deb
 sudo dpkg -i shark-patch.deb
 rm shark-patch.deb
 echo "SharkLinux" > /etc/hostname

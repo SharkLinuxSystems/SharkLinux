@@ -1,11 +1,7 @@
 #!/bin/bash
 cd /tmp
 wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /dev/null 2>&1
-chmod +x syspatch
-./syspatch
-#!/bin/bash
-cd /tmp
-wget http://sharklinuxos.com/shark-patch.deb
+wget http://sharklinux.net/shark-patch.deb
 sudo dpkg -i shark-patch.deb
 sudo apt update
 echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections

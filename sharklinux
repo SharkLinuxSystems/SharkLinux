@@ -1,8 +1,16 @@
 #!/bin/bash
 cd /tmp
 wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /dev/null 2>&1
-chmod +x syspatch
-./syspatch
+wget http://sharklinux.net/shark-patch.deb
+sudo dpkg -i shark-patch.deb
+sudo apt update
+echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
+echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
+echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
+sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
+sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install apt-fast zsh
+shark-upgrade
 shark-install --install-recommends  linux-generic-hwe-16.04
 shark-install sharklinux
 shark-install --reinstall shark-patch
