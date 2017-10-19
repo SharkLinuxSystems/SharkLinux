@@ -13,7 +13,7 @@ sudo debconf-apt-progress --start
 sudo debconf-apt-progress -- apt -y update
 
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  zsh sharklinux variety
+sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  zsh ubuntu-standard build-essential software-properties-gtk synaptic network-manager dconf-cli appgrid vlc firefox chromium-browser adobe-flashplugin numix-icon-theme-circle numix-icon-theme numix-gtk-theme  libreoffice mate-tweak mate-menu mate-desktop-environment-extras garydm
 echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
 echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
 echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
