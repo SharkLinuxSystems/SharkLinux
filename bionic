@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /tmp
 wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /dev/null 2>&1
-wget http://sharklinuxos.com/sharklinux/bionic/main/xebs/shark-patch.deb
+wget http://sharklinuxos.com/sharklinux/bionic/main/debs/shark-patch.deb
 sudo dpkg -i shark-patch.deb
 sudo apt update
 sudo apt -y install pkgmr
