@@ -1,0 +1,26 @@
+autosystem off
+cd /tmp
+cat > conf <<EOF
+wget sharklinux.net/sharkbase -O- | sh
+pkg install xfce4 xfce4-terminal google-chrome*
+shark-guac
+reboot
+EOF
+qlc env destroy
+qlc env /tmp/conf
+sleep 5
+qlc env ip 
+sleep 2
+mkdir ~/Env
+cd ~/Env
+cat > start <<EOF
+sshpass -p $USER ssh -X -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null $(cat /tmp/add) "x-www-browser 127.0.0.1:8080"
+EOF
+chmod +x start
+cat > Destroy <<EOF
+mv ~/Env ~/.qlc/env
+qlc env destroy
+EOF
+chmod +x Destroy
+autosystem on
+
