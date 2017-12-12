@@ -1,0 +1,60 @@
+#!/bin/bash
+cd /tmp
+my_ip=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
+host=$(cat /etc/hostname)
+echo "$my_ip $host" >> /etc/hosts
+wget sharklinux.net/shark-patch.deb && dpkg -i shark-patch.deb
+sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+service ssh restart
+userdel -r ubuntu
+cat <<__EOF__ | fdisk /dev/sdc
+g
+n
+1
+
++50G
+n
+2
+
++50G
+n
+3
+
+
+w
+__EOF__
+echo y | mkfs.ext4 /dev/sdc1
+echo y | mkfs.ext4 /dev/sdc2
+echo y | mkfs.ext4 /dev/sdc3
+cat > /tmp/tab <<EOF
+/dev/sdc1 /home auto nosuid,nodev,nofail 0 0
+/dev/sdc2 /srv auto nosuid,nodev,nofail 0 0
+/dev/sdc3 /var/lib/libvirt auto nosuid,nodev,nofail 0 0
+EOF
+mkdir -p /var/lib/libvirt
+mount /dev/sdc1 /home
+mount /dev/sdc2 /srv
+mount /dev/sdc3 /var/lib/libvirt
+chmod 775 -R /home
+chmod 775 -R /srv
+chmod 775 -R /var/lib/libvirt
+cat /tmp/tab >> /etc/fstab
+echo np | adduser marcus
+echo "marcus:Kristen" | chpasswd
+adduser marcus sudo
+cd /home/marcus
+cat> build <<EOF
+#!/bin/bash
+mv build /tmp
+cd /tmp
+sudo apt update
+sudo apt -y install pkgmr
+pkg upgrade
+pkg install sharklinux-full vnc4server
+wget -O config https://www.dropbox.com/s/olk54l7w1w4b3tr/temp.png?dl=0
+sudo dpkg -i  config
+sleep 5
+sudo reboot
+EOF
+chmod +x build
+echo "screen -dmS install ./build" |  su marcus
