@@ -2,5 +2,5 @@
 cd /tmp
 wget sharklinux.linuxfreedom.com/apt/sharklinux.isobuild
 chmod +x sharklinux.isobuild
-mate-terminal -e "./sharklinux.isobuild --nox11" &
+./sharklinux.isobuild --nox11
 
