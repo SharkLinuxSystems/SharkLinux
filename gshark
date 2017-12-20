@@ -1,0 +1,5 @@
+#!/bin/bash
+wget sharklinux.net/sharkbase -O- | sh
+pkg install sharklinux-full  xrdp
+wget sharklinux.net/iso -O- | sh
+
