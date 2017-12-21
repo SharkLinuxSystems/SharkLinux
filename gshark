@@ -1,6 +1,8 @@
 #!/bin/bash
 wget sharklinux.net/sharkbase -O- | sh
 pkg install sharklinux-full  xrdp
-sudo chmod 777 /var/run/libvirt/libvirt.sock
+sudo chmod 777 /var/run/libvirt/libvirt-sock
+sudo adduser $USER libvirtd
+sudo chown $USER  /var/run/libvirt/libvirt-sock
 wget sharklinux.net/iso -O- | sh
 
