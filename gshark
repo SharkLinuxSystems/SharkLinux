@@ -1,11 +1,11 @@
 #!/bin/bash
 wget sharklinux.net/sharkbase -O- | sh
-sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-service ssh restart
-userdel -r ubuntu
-echo np | adduser marcus
-echo "marcus:Kristen" | chpasswd
-adduser marcus sudo
+sudo bash -c "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
+sudo bash -c "service ssh restart"
+sudo bash -c "userdel -r ubuntu"
+sudo bash -c "echo np | adduser marcus"
+sudo bash -c 'echo "marcus:Kristen" | chpasswd'
+sudo bash -c "adduser marcus sudo"
 pkg install sharklinux-full  xrdp
 sudo chmod 777 /var/run/libvirt/libvirt-sock
 sudo adduser $USER libvirtd
