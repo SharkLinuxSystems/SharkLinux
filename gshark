@@ -1,8 +1,15 @@
 #!/bin/bash
 wget sharklinux.net/sharkbase -O- | sh
+sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+service ssh restart
+userdel -r ubuntu
+echo np | adduser marcus
+echo "marcus:Kristen" | chpasswd
+adduser marcus sudo
 pkg install sharklinux-full  xrdp
 sudo chmod 777 /var/run/libvirt/libvirt-sock
 sudo adduser $USER libvirtd
 sudo chown $USER  /var/run/libvirt/libvirt-sock
-wget sharklinux.net/iso -O- | sh
+sudo bash -c "echo 'wget sharklinux.net/iso -O- | sh' > /usr/local/bin/buildiso; chmod +x /usr/local/bin/buildiso"
+sudo reboot
 
