@@ -11,5 +11,7 @@ sudo chmod 777 /var/run/libvirt/libvirt-sock
 sudo adduser $USER libvirtd
 sudo chown $USER  /var/run/libvirt/libvirt-sock
 sudo bash -c "echo 'wget sharklinux.net/iso -O- | sh' > /usr/local/bin/buildiso; chmod +x /usr/local/bin/buildiso"
+pkg purge 4.13.0*
+pkg install linux-virtual
 sudo reboot
 
