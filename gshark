@@ -6,7 +6,29 @@ sudo bash -c "userdel -r ubuntu"
 sudo bash -c "echo np | adduser marcus"
 sudo bash -c 'echo "marcus:Kristen" | chpasswd'
 sudo bash -c "adduser marcus sudo"
-pkg install sharklinux-full  xrdp
+sudo chmod 777 /srv
+wget -O - https://clck.ru/9V9fH | sudo sh
+pkg install git python-virtualenv python-pip python-dev libxml2-dev libvirt-dev zlib1g-dev nginx supervisor libsasl2-modules
+git clone https://github.com/retspen/webvirtcloud > /dev/null 2>&1
+cd webvirtcloud
+sudo cp conf/supervisor/webvirtcloud.conf /etc/supervisor/conf.d
+sudo cp conf/nginx/webvirtcloud.conf /etc/nginx/conf.d
+sudo bash -c "sed -i -e 's/listen 80;/listen 8081;/g' /etc/nginx/conf.d/webvirtcloud.conf"
+cd ..
+sudo mv webvirtcloud /srv
+sudo chown -R www-data:www-data /srv/webvirtcloud
+cd /srv/webvirtcloud
+sudo virtualenv venv
+source venv/bin/activate
+pip install -r conf/requirements.txt
+python manage.py migrate
+sudo chown -R www-data:www-data /srv/webvirtcloud
+sudo rm /etc/nginx/sites-enabled/default
+sudo service nginx restart
+sudo service supervisor restart
+wget -O - https://clck.ru/9V9fH | sudo sh
+
+pkg install virt-manager ruby-dev libvirt-dev libvirt-bin qemu qemu-kvm
 sudo chmod 777 /var/run/libvirt/libvirt-sock
 sudo adduser $USER libvirtd
 sudo chown $USER  /var/run/libvirt/libvirt-sock
