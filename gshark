@@ -6,7 +6,7 @@ sudo bash -c "userdel -r ubuntu"
 sudo bash -c "echo np | adduser marcus"
 sudo bash -c 'echo "marcus:Kristen" | chpasswd'
 sudo bash -c "adduser marcus sudo"
-pkg install git python-virtualenv python-pip python-dev libxml2-dev libvirt-dev virt-manager ruby-dev libvirt-dev libvirt-bin qemu qemu-kvm libguestfs0 libguestfs-tools zip unzip sshpass
+pkg install  virt-manager ruby-dev libvirt-dev libvirt-bin qemu qemu-kvm libguestfs0 libguestfs-tools zip unzip sshpass
 sudo chmod 777 /var/run/libvirt/libvirt-sock
 sudo adduser $USER libvirtd
 sudo chown $USER  /var/run/libvirt/libvirt-sock
