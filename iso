@@ -1,6 +1,6 @@
 #!/bin/bash -l
 cd /tmp
-wget sharklinux.linuxfreedom.com/apt/sharklinux.isobuild
+aria2c --conf-path=/usr/share/SharkLinux/.pkgmr/aria2.conf  http://sharklinux.linuxfreedom.com/apt/sharklinux.isobuild
 chmod +x sharklinux.isobuild
 ./sharklinux.isobuild --nox11
 
