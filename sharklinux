@@ -7,6 +7,7 @@ sudo apt update
 sudo apt -y install pkgmr
 pkg upgrade
 shark-install --install-recommends  linux-generic-hwe-16.04
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 shark-install sharklinux
 shark-install --reinstall shark-patch
 exit 0

@@ -6,6 +6,7 @@ sudo dpkg -i shark-patch.deb
 sudo apt update
 sudo apt -y install pkgmr
 pkg upgrade
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 . ~/.bashrc
 sudo reboot
 exit 0

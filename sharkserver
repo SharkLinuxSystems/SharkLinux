@@ -7,5 +7,6 @@ sudo apt update
 sudo apt -y install pkgmr
 pkg upgrade
 sysclean
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 pkg install sharklinux-full vnc4server
 exit 0
