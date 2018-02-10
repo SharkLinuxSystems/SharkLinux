@@ -2,5 +2,5 @@
 cd /tmp
 wget https://downloads.sourceforge.net/project/sharklinux/resources/sharkstrap > /dev/null 2>&1
 chmod +x sharkstrap
-sudo ./sharkstrap base-r
+sudo ./sharkstrap minimal
 exit 0
