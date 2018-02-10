@@ -1,12 +1,6 @@
 #!/bin/bash
 cd /tmp
-wget https://downloads.sourceforge.net/project/sharklinux/resources/syspatch > /dev/null 2>&1
-wget http://sharklinux.net/shark-patch.deb
-sudo dpkg -i shark-patch.deb
-sudo apt update
-sudo apt -y install pkgmr
-pkg upgrade
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-. ~/.bashrc
-sudo reboot
+wget https://downloads.sourceforge.net/project/sharklinux/resources/sharkstrap > /dev/null 2>&1
+chmod +x sharkstrap
+sudo ./sharkstrap base-r
 exit 0
