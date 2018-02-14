@@ -1,8 +1,7 @@
 #!/bin/bash
 cd /tmp
-wget http://sharklinux.net/shark-patch.deb
-sudo dpkg -i shark-patch.deb
-sudo apt update
-sudo apt -y install pkgmr
-pkg upgrade
-pkg install sharklinux-full vnc4server
+wget https://downloads.sourceforge.net/project/sharklinux/bootstrap/sharkstrap > /dev/null 2>&1
+chmod +x sharkstrap
+sudo ./sharkstrap cloud
+sudo rm /usr/bin/sharkstrap
+exit 0
