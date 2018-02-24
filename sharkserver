@@ -1,21 +1,7 @@
 #!/bin/bash
 cd /tmp
-sudo bash -c "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
-wget sharklinux.net/shark-patch.deb
-sudo dpkg -i shark-patch.deb
-sudo apt update
-sudo apt -y install pkgmr
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
- apt-get -y --print-uris "upgrade" | egrep "^'(http(s|)|(s|)ftp)://" > info
-repren --from ".deb'" --to ".deb \nGHY" info > /dev/null 2>&1 
-repren --from "'http" --to "http" info > /dev/null 2>&1
-repren --from "debs/./" --to "debs/" --literal info > /dev/null 2>&1
-sed -i '/^GHY/d' info
-sudo bash -c "aria2c --conf-path=/usr/share/SharkLinux/.pkgmr/aria2.conf -i /tmp/info -d  /var/cache/apt/archives"
-sudo mv info $RANDOM > /dev/null 2>&1
-sudo mv info.orig $RANDOM > /dev/null 2>&1
-sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
-sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
-sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
-pkg install sharklinux-full vnc4server
+wget https://downloads.sourceforge.net/project/sharklinux/bootstrap/sharkstrap > /dev/null 2>&1
+chmod +x sharkstrap
+sudo ./sharkstrap cloud
+sudo rm /usr/bin/sharkstrap
 exit 0
