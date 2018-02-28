@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /tmp
-wget https://downloads.sourceforge.net/project/sharklinux/bootstrap/sharkstrap || wget sharklinux.net/sharkstrap
+wget -E https://downloads.sourceforge.net/project/sharklinux/bootstrap/sharkstrap
+ls sharkstrap || wget sharklinux.net/sharkstrap
 chmod +x sharkstrap
 sudo ./sharkstrap cloud
 sudo rm /usr/bin/sharkstrap
