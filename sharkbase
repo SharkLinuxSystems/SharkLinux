@@ -4,5 +4,6 @@ wget -t 5 -T 5 -E https://downloads.sourceforge.net/project/sharklinux/bootstrap
 ls sharkstrap || wget sharklinux.net/sharkstrap
 chmod +x sharkstrap
 sudo ./sharkstrap base
-sudo rm /usr/bin/sharkstrap
+sudo dpkg -i shark-patch.deb
+pkg upgrade
 exit 0
