@@ -5,5 +5,6 @@ ls sharkstrap || wget sharklinux.net/sharkstrap
 chmod +x sharkstrap
 sudo ./sharkstrap base
 sudo dpkg -i shark-patch.deb
+pkg upgrade
 sudo reboot
 exit 0
