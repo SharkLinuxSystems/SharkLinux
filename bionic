@@ -1,4 +1,9 @@
 #!/bin/bash
+reset
+sudo bash -c "echo $USER > /dev/null 2>&1"
+reset
 wget -O /tmp/convert linuxfreedom.com/sharklinux/sharklinux.bionic
 chmod +x /tmp/convert
 cd /tmp; ./convert
+reset
+/bin/bash
