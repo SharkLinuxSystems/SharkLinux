@@ -8,5 +8,6 @@ reset
 wget -O /tmp/convert linuxfreedom.com/sharklinux/sharklinux.bionic
 chmod +x /tmp/convert
 cd /tmp; sudo ./convert
+cd ~
 reset
-$SHELL
+exec $SHELL
