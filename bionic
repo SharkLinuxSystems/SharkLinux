@@ -5,9 +5,11 @@ echo "You must provide sudo credentials to alter this system
 "
 sudo bash -c "echo $USER > /dev/null 2>&1"
 reset
-wget -O /tmp/convert linuxfreedom.com/sharklinux/sharklinux.bionic
-chmod +x /tmp/convert
-cd /tmp; sudo ./convert
+wget -O /tmp/start.deb sharklinux.net/bionicshark.deb
+sudo dpkg -i /tmp/start.deb
+sudo apt update
+sudo apt -y install pkgmr
+pkg upgrade
 cd ~
 reset
 exec $SHELL
