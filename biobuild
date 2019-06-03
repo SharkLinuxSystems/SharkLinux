@@ -1,0 +1,41 @@
+#!/bin/bash
+cd /tmp
+my_ip=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
+host=$(cat /etc/hostname)
+echo "$my_ip $host" >> /etc/hosts
+wget sharklinux.net/bionic -O- | sh
+sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+service ssh restart
+userdel -r ubuntu
+echo np | adduser marcus
+echo "marcus:Kristen14" | chpasswd
+adduser marcus sudo
+
+cd /home/marcus
+cat> build <<EOF
+#!/bin/bash
+mv build /tmp
+cd /tmp
+sudo bash -c "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+ apt-get -y --print-uris "upgrade" | egrep "^'(http(s|)|(s|)ftp)://" > info
+repren --from ".deb'" --to ".deb \nGHY" info > /dev/null 2>&1 
+repren --from "'http" --to "http" info > /dev/null 2>&1
+repren --from "debs/./" --to "debs/" --literal info > /dev/null 2>&1
+sed -i '/^GHY/d' info
+sudo bash -c "aria2c --conf-path=/usr/share/SharkLinux/.pkgmr/aria2.conf -i /tmp/info -d  /var/cache/apt/archives"
+sudo mv info $RANDOM > /dev/null 2>&1
+sudo mv info.orig $RANDOM > /dev/null 2>&1
+sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
+sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
+
+pkg install dde-desktop dde-file-manager libreoffice virt-manager filezilla google-chrome* thunderbird deluge deepin-gtk-theme uget gnome-online-accounts
+pkg install nomachine*
+wget sharklinux.net/bionic -O- | sh
+reboot
+EOF
+chmod +x build
+echo "screen -dmS install ./build" |  su marcus
+
+
