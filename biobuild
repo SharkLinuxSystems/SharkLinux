@@ -32,6 +32,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" 
 
 pkg install dde dde-file-manager deepin-gtk-theme
 pkg install libreoffice virt-manager filezilla google-chrome* thunderbird deluge  uget gnome-online-accounts
+pkg install 4kslideshowmaker 4kstogram 4kvideodownloader 4kvideotomp3 4kyoutubetomp3 balena-etcher-electron copyq dropbox franz ramme spotify-client stacer uget
 pkg install nomachine*
 wget sharklinux.net/bionic -O- | sh
 reboot
