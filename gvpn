@@ -1,7 +1,7 @@
 #!/bin/bash
 wget sharklinux.net/sharkbase -O- | sh
 pkg install xfce4 mate-terminal caja pluma google-chrome* deluge
-echo "pkg install nordvpn-sl; nordvpn; nordvpn connect" > /home/marcus/Desktop/vpn
-chmod 777 /home/marcus/Desktop/vpn
+echo "pkg install nordvpn-sl; nordvpn; nordvpn connect" > /usr/bin/nordvpn
+chmod 777 /usr/bin/nordvpn
 shark-guac
 reboot
