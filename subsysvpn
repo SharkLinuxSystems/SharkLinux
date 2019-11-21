@@ -12,5 +12,5 @@ qlc vpn /tmp/subsysvpn
 sleep 5
 qlc vpn ip
 sleep 1
-screen -m -d firefox-trunk $(cat /tmp/add):8080
+screen -m -d "firefox-trunk $(cat /tmp/add):8080"
 exit 0
