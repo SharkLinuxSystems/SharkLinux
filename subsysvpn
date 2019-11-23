@@ -13,5 +13,9 @@ qlc vpn /tmp/subsysvpn
 sleep 5
 qlc vpn ip
 sleep 1
-screen -m -d firefox-trunk $(cat /tmp/add):8080; qlc vpn destroy
+
+cat>/tmp/comd<<EOF
+firefox-trunk $(cat /tmp/add):8080; qlc vpn destroy
+EOF
+screen -m -d ./tmp/comd
 exit 0
