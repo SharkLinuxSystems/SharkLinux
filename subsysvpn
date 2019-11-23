@@ -17,5 +17,6 @@ sleep 1
 cat>/tmp/comd<<EOF
 firefox-trunk $(cat /tmp/add):8080; qlc vpn destroy
 EOF
-screen -m -d ./tmp/comd
+chmod 777 /tmp/comd
+screen -m -d sh /tmp/comd
 exit 0
