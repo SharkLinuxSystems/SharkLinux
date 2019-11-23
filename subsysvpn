@@ -2,15 +2,16 @@
 cat> /tmp/subsysvpn <<EOF
 #!/bin/bash
 wget sharklinux.net/sharkbase -O- | sh
-pkg install xfce4 mate-terminal caja pluma google-chrome* deluge
+pkg install xfce4 mate-terminal google-chrome* deluge
 echo "pkg install nordvpn-sl; nordvpn; nordvpn connect" > /usr/bin/subsysvpn
 chmod 777 /usr/bin/subsysvpn
 shark-guac
 reboot
 EOF
+ls ~/.qlc || qlc install
 qlc vpn /tmp/subsysvpn
 sleep 5
 qlc vpn ip
 sleep 1
-screen -m -d firefox-trunk $(cat /tmp/add):8080
+screen -m -d firefox-trunk $(cat /tmp/add):8080; qlc vpn destroy
 exit 0
