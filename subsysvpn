@@ -1,4 +1,37 @@
 #!/bin/bash -l
+ls ~/.qlc || qlc install
+cd ~/.qlc
+mkdir subsys
+cd subsys
+echo " echo 'np' | adduser $USER" >> config
+echo "cat <<__EOF__ | passwd $USER" >> config
+echo "$USER" >> config
+echo "$USER" >> config
+echo "__EOF__" >> config
+echo "adduser $USER sudo" >> config
+echo "apt update" >> config
+echo "apt install -y openssh-server nano" >> config
+chmod +x config
+mkdir shared
+lxdock init
+cat> prov <<EOF
+shares:
+  - source: ./shared
+    dest: /home/$USER/Downloads
+
+provisioning:
+  - type: shell
+    script: ./config
+
+users:
+  - name: $USER
+    home: /home/$USER
+
+EOF
+cat prov >> lxdock.yml
+mv prov /tmp
+lxdock up
+echo "#config file" > config
 cat> /tmp/subsysvpn <<EOF
 #!/bin/bash
 wget sharklinux.net/sharkbase -O- | sh
@@ -8,14 +41,13 @@ chmod 777 /usr/bin/subsysvpn
 shark-guac
 reboot
 EOF
-ls ~/.qlc || qlc install
-qlc vpn /tmp/subsysvpn
+ln -s ~/.qlc/subsys/shared ~/SubSysVPN
+echo "$(cat /tmp/subsysvpn)" | lxdock shell
 sleep 5
-qlc vpn ip
+qlc subsys ip
 sleep 1
-
 cat>/tmp/comd<<EOF
-/opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/add):8080; qlc vpn destroy
+/opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/add):8080; mv ~/SubSysVPN /tmp/$RANDOM; qlc subsys destroy
 EOF
 chmod 777 /tmp/comd
 screen -m -d bash /tmp/comd
