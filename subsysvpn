@@ -46,7 +46,7 @@ echo "$(cat /tmp/subsysvpn)" | lxdock shell
 sleep 5
 qlc subsys ip
 sleep 1
-cat>/tmp/comd<<EOF
+cat>/tmp/comd<<'EOF'
 /opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/add):8080; mv ~/SubSysVPN /tmp/$RANDOM; qlc subsys destroy
 EOF
 chmod 777 /tmp/comd
