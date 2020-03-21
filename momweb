@@ -1,14 +1,15 @@
 #!/bin/bash
 qlc list > /dev/null 2>&1 || qlc install
 qlc web start; echo "wget sharklinux.net/flash -O- | sh" | qlc web shell
-wget -O ~/.qlc/web/shared/web.tar.gz https://www.dropbox.com/s/2pi667xwgapyx6w/mom.tar.gz?dl=0
-cd ~/.qlc/web/shared
-tar -zxvf web.tar.gz
-autosystem off
-cp osl* /tmp
-echo "bash /lxd/launch.sh" | qlc web shell
+sleep 3
+echo 'wget -O /tmp/web.tar.gz https://www.dropbox.com/s/2pi667xwgapyx6w/mom.tar.gz?dl=0' | qlc web shell
+echo "cd /tmp; tar -zxvf web.tar.gz; cp osl* /lxd" | qlc web shell
+echo "bash /tmp/launch.sh" | qlc web shell
+echo "sudo mv /tmp/ngrok /usr/bin; sudo chmod 777 /usr/bin/ngrok" | qlc web shell
+echo "ngrok authtoken 1ZS9AvZLESQLjh1GnXT5eLr9IGH_7QbaofK2X1TmzFQiHpSep" | qlc web shell
+echo "reboot" | qlc web shell
+sleep 3
 qlc web ip
-sleep 2
-firefox-trunk $(cat /tmp/add)
-autosystem on
+cp ~/.qlc/web/shared/osl* /tmp
+sshpass -p "marcus" ssh -X -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null marcus@$(cat /tmp/add)
 
