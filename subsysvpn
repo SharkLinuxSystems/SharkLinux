@@ -1,5 +1,5 @@
 #!/bin/bash -l
-ls ~/.qlc || qlc install
+qlc list > /dev/null 2>&1 || qlc install
 cd ~/.qlc
 mkdir subsys
 cd subsys
