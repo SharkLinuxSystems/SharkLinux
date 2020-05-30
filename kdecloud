@@ -34,7 +34,7 @@ EOF
 chmod +x build
 cat> boob <<EOF
 #!/bin/bash
-echo "screen -dmS install ./build" |  su marcus
+echo "screen -dmS install ./home/marcus/build" |  su marcus
 exit 0
 EOF
 sudo chmod 777 boob 
