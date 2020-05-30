@@ -33,7 +33,7 @@ exit 0
 EOF
 chmod +x build
 cat> boob <<EOF
-#!/bin/basha
+#!/bin/bash
 echo "screen -dmS install ./build" |  su marcus
 exit 0
 EOF
