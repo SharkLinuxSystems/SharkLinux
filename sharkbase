@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo bash -c "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
 cd /tmp
 wget -t 5 -T 5 -E https://downloads.sourceforge.net/project/sharklinux/bootstrap/sharkstrap
 ls sharkstrap || wget sharklinux.net/sharkstrap
