@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cat> libvirt-qemu <<EOF
+[User]
+SystemAccount=true
+EOF
+sudo mv libvirt-qemu /var/lib/AccountsService/users
+pkg install shark-isobuild; bash /tmp/grubconf; iso-prep
+cat> /tmp/kill <<'EOF'
+pgrep -u ubuntu
+ps -fp $(pgrep -u ubuntu)
+killall -KILL -u ubuntu
+userdel -r ubuntu
+EOF
+chmod +x /tmp/kill
+
+
+sysclean
+pkg install shark-isobuild
+bash /tmp/grubconf
+iso-prep
+echo "sudo sh /tmp/kill; sudo PinguyBuilder dist; pkg install apache2; sudo mv /home/PinguyBuilder/PinguyBuilder/SharkLinux.iso /var/www/html; sudo chmod 775 -R /var/www/html" | su sharklinux
+
