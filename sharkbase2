@@ -1,24 +1,12 @@
 #!/bin/bash
-echo "[User]" > libvirt-qemu
-echo "SystemAccount=true" >> libvirt-qemu
-sudo mkdir -p /var/lib/AccountsService/users
-sudo mv libvirt-qemu /var/lib/AccountsService/users
 cat> /tmp/userdata.sh <<'LOL'
 #!/bin/bash
-cd /tmp
-my_ip=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
-host=$(cat /etc/hostname)
-echo "$my_ip $host" >> /etc/hosts
-sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-service ssh restart
-userdel -r ubuntu
 echo np | adduser sharklinux
 echo "sharklinux:sharklinux" | chpasswd
 adduser sharklinux sudo
 LOL
 sudo chmod 777 /tmp/userdata.sh
 sudo mv /tmp/userdata.sh /etc/rc.local
-sudo bash -c "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
 cd /tmp
 wget -t 5 -T 5 -E https://downloads.sourceforge.net/project/sharklinux/bootstrap/sharkstrap
 ls sharkstrap || wget sharklinux.net/sharkstrap
