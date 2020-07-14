@@ -1,8 +1,7 @@
 #!/bin/bash -l
-qlc list > /dev/null 2>&1 || qlc install
-cd ~/.qlc
-mkdir subsys
-cd subsys
+lxd init --auto
+lxc launch ubuntu:16.04 subsys
+sleep 3
 echo " echo 'np' | adduser $USER" >> config
 echo "cat <<__EOF__ | passwd $USER" >> config
 echo "$USER" >> config
@@ -12,28 +11,13 @@ echo "adduser $USER sudo" >> config
 echo "apt update" >> config
 echo "apt install -y openssh-server nano" >> config
 chmod +x config
-mkdir shared
-lxdock init
-cat> prov <<EOF
-shares:
-  - source: ./shared
-    dest: /home/$USER/Downloads
-
-provisioning:
-  - type: shell
-    script: ./config
-
-users:
-  - name: $USER
-    home: /home/$USER
-
-EOF
-cat prov >> lxdock.yml
-mv prov /tmp
-lxdock up
-echo "#config file" > config
+lxc file push config subsys/tmp/
+echo "bash /tmp/config" | lxc exec subsys bash
+rm config
 cat> /tmp/subsysvpn <<EOF
 #!/bin/bash
+sleep 2
+sudo apt update
 wget sharklinux.net/sharkbase -O- | sh
 pkg install xfce4 mate-terminal google-chrome* deluge
 echo "pkg install nordvpn-sl; nordvpn; nordvpn connect" > /usr/bin/subsysvpn
@@ -41,13 +25,12 @@ chmod 777 /usr/bin/subsysvpn
 shark-guac
 reboot
 EOF
-ln -s ~/.qlc/subsys/shared ~/SubSysVPN
-echo "$(cat /tmp/subsysvpn)" | lxdock shell
-sleep 5
-qlc subsys ip
-sleep 1
+chmod +x subsysvpn
+echo "$(cat /tmp/subsysvpn)" | lxc exec subsys bash 
+lxc list > /tmp/a; repren --from "10." --to "\n10." /tmp/a; repren --from " \(eth" --to "\n" /tmp/a; cat /tmp/a | grep 10. > /tmp/ip
+sleep 3
 cat>/tmp/comd<<'EOF'
-/opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/add):8080; mv ~/SubSysVPN /tmp/$RANDOM; qlc subsys destroy
+/opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/ip):8080; mv ~/SubSysVPN /tmp/$RANDOM; lxc delete --force subsys 
 EOF
 chmod 777 /tmp/comd
 screen -m -d bash /tmp/comd
