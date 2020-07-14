@@ -26,11 +26,16 @@ shark-guac
 reboot
 EOF
 chmod +x subsysvpn
-echo "$(cat /tmp/subsysvpn)" | lxc exec subsys bash 
-lxc list > /tmp/a; repren --from "10." --to "\n10." /tmp/a; repren --from " \(eth" --to "\n" /tmp/a; cat /tmp/a | grep 10. > /tmp/ip
+lxc file push /tmp/subsysvpn subsys/tmp/
+
+echo "bash /tmp/subsysvpn" | lxc exec subsys bash 
+sleep 2
+lxc start subsys
+sleep 3
+lxc list > /tmp/a; repren --from "10." --to "\n10." /tmp/a; repren --from " \(eth" --to "\n" /tmp/a; cat /tmp/a | grep 10 > /tmp/ip
 sleep 3
 cat>/tmp/comd<<'EOF'
-/opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/ip):8080; mv ~/SubSysVPN /tmp/$RANDOM; lxc delete --force subsys 
+/opt/google/chrome/google-chrome --profile-directory=Default --app=http://$(cat /tmp/ip):8080
 EOF
 chmod 777 /tmp/comd
 screen -m -d bash /tmp/comd
