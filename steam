@@ -1,11 +1,21 @@
 lxd init --auto
+echo "installing needed tools"
+pkg install sshpass > /dev/null 2>&1
 lxc launch ubuntu:20.04 steam
-apt download nomachine*
+wget -t 5 -T 5 -E https://downloads.sourceforge.net/project/sharklinux/resources/nmcloud.deb
 mv *.deb cloud.deb 
+cat> /tmp/2 <<EOF
+sudo dpkg --add-architecture i386 
+wget -nc https://dl.winehq.org/wine-builds/winehq.key
+apt-key add winehq.key
+add-apt-repository -y 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+upgrade
+EOF
+chmod +x /tmp/2
 cat> setup <<EOF
 userdel -r ubuntu
 echo np | adduser marcus
-echo "marcus:Kristen14" | chpasswd
+echo "marcus:marcus" | chpasswd
 adduser marcus sudo
 apt -y purge openssh-server
 apt -y autoremove
@@ -13,12 +23,14 @@ sudo dpkg --add-architecture i386
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
 apt-key add winehq.key
 add-apt-repository -y 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-apt -y install --install-recommends openssh-server winehq-stable
-apt -y install mate-desktop playonlinux 
+apt update
+apt -y install icewm playonlinux openssh-server winehq-stable || bash /tmp/2
+apt -y install icewm playonlinux openssh-server winehq-stable
 sudo dpkg -i /tmp/cloud.deb || apt -y -f install
 EOF
 lxc file push setup steam/tmp/setup
 lxc file push cloud.deb steam/tmp/cloud.deb
+lxc file push /tmp/2 steam/tmp/2
 mv cloud.deb setup /tmp
 echo "source /tmp/setup" | lxc exec steam bash
 cd /tmp
@@ -29,5 +41,14 @@ cat new > ip
 repren --from "RUNNING | " --to "\n" --full ip > /dev/null 2>&1
 repren --from "\(eth" --to "\n \(eth" --full ip > /dev/null 2>&1
 sed -n '/^10/p' ip > add
-ssh -X $(cat /tmp/add) playonlinux
-
+cat> $HOME/Desktop/console <<EOF
+x-www-browser $(cat /tmp/add):4080
+EOF
+chmod +x ~/Desktop/*
+cat > /tmp/go <<EOF
+sshpass -p "marcus" ssh -X -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null marcus@$(cat /tmp/add) playonlinux
+EOF
+chmod +x /tmp/go
+sudo cp /tmp/go /usr/local/bin/playol
+screenie -j playol playol
+killall mate-terminal
