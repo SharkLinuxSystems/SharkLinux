@@ -1,0 +1,33 @@
+lxd init --auto
+lxc launch ubuntu:20.04 steam
+apt download nomachine*
+mv *.deb cloud.deb 
+cat> setup <<EOF
+userdel -r ubuntu
+echo np | adduser marcus
+echo "marcus:Kristen14" | chpasswd
+adduser marcus sudo
+apt -y purge openssh-server
+apt -y autoremove
+sudo dpkg --add-architecture i386 
+wget -nc https://dl.winehq.org/wine-builds/winehq.key
+apt-key add winehq.key
+add-apt-repository -y 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+apt -y install --install-recommends openssh-server winehq-stable
+apt -y install mate-desktop playonlinux 
+sudo dpkg -i /tmp/cloud.deb || apt -y -f install
+EOF
+lxc file push setup steam/tmp/setup
+lxc file push cloud.deb steam/tmp/cloud.deb
+mv cloud.deb setup /tmp
+echo "source /tmp/setup" | lxc exec steam bash
+cd /tmp
+lxc list > ip
+repren --from "steam" --to "\nZZZsteam" --full ip > /dev/null 2>&1
+sed -n '/ZZZ/p' ip > new
+cat new > ip
+repren --from "RUNNING | " --to "\n" --full ip > /dev/null 2>&1
+repren --from "\(eth" --to "\n \(eth" --full ip > /dev/null 2>&1
+sed -n '/^10/p' ip > add
+ssh -X $(cat /tmp/add) playonlinux
+
