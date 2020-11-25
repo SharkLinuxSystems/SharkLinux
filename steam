@@ -2,14 +2,13 @@ lxd init --auto
 echo "installing needed tools"
 pkg install sshpass > /dev/null 2>&1
 lxc launch ubuntu:20.04 steam
-wget -t 5 -T 5 -E https://downloads.sourceforge.net/project/sharklinux/resources/nmcloud.deb
-mv *.deb cloud.deb 
+wget -O cloud.deb sharklinux.net/console
 cat> /tmp/2 <<EOF
 sudo dpkg --add-architecture i386 
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
 apt-key add winehq.key
 add-apt-repository -y 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-upgrade
+sudo apt -y upgrade
 EOF
 chmod +x /tmp/2
 cat> setup <<EOF
