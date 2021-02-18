@@ -2,7 +2,8 @@
 cd /tmp
 wget -O /tmp/start.deb sharklinux.net/focal.deb; sudo dpkg -i /tmp/start.deb; sudo apt update; sudo apt -y install -f
 pkg refresh
-
+pkg install snapd
+sudo snap install lxd
 rm start.deb
 echo "SharkLinux" > /etc/hostname
 echo "SharkLinux" >> /etc/hosts
