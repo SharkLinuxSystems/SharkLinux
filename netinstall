@@ -8,7 +8,10 @@ sudo ex +"%s@DPkg@//DPkg" -cwq /etc/apt/apt.conf.d/70debconf > /dev/null 2>&1
 sudo dpkg-reconfigure debconf -f noninteractive -p critical > /dev/null 2>&1
 
 sudo apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-sudo apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic snapd vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings virt-manager qemu-kvm qemu libreoffice gigolo sharkdm
+sudo debconf-apt-progress --start
+sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic snapd vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings virt-manager qemu-kvm qemu libreoffice gigolo 
+pkg purge gdm3
+pkg install sharkdm
 echo "SharkLinux" > /etc/hostname
 echo "SharkLinux" >> /etc/hosts
 sudo usermod -u 499 libvirt-qemu    
