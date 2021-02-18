@@ -1,8 +1,9 @@
 #!/bin/bash
 cd /tmp
-wget http://sharklinux.net/shark-patch.deb
-sudo dpkg -i shark-patch.deb
-rm shark-patch.deb
+wget -O /tmp/start.deb sharklinux.net/focal.deb; sudo dpkg -i /tmp/start.deb; sudo apt update; sudo apt -y install -f
+pkg refresh
+
+rm start.deb
 echo "SharkLinux" > /etc/hostname
 echo "SharkLinux" >> /etc/hosts
 sudo usermod -u 499 libvirt-qemu    
@@ -13,10 +14,9 @@ sudo debconf-apt-progress --start
 sudo debconf-apt-progress -- apt -y update
 
 sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  zsh ubuntu-standard build-essential software-properties-gtk synaptic network-manager dconf-cli appgrid vlc firefox chromium-browser adobe-flashplugin numix-icon-theme-circle numix-icon-theme numix-gtk-theme  libreoffice mate-tweak mate-menu mate-desktop-environment-extras garydm
-echo debconf apt-fast/maxdownloads string 16 | sudo debconf-set-selections
-echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections
-echo debconf apt-fast/aptmanager string apt | sudo debconf-set-selections
-sudo apt install -y apt-fast
+sudo debconf-apt-progress -- apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install  screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings virt-manager qemu-kvm qemu libreoffice gigolo sharkdm
+sudo reboot
+exit 0
+
 
 
