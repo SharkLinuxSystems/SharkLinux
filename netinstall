@@ -2,13 +2,10 @@
 apt update
 wget sharklinux.net/focal.deb; dpkg -i *.deb; apt -y -f install
 pkg refresh
-mkdir /srv/local-apt-repository
-aria2c --conf-path=/usr/share/SharkLinux/.pkgmr/aria2.conf http://sharklinuxos.org/current/sharklinux.tar.gz -d  /srv/local-apt-repository
-cd /srv/local-apt-repository
+aria2c --conf-path=/usr/share/SharkLinux/.pkgmr/aria2.conf http://sharklinuxos.org/current/sharklinux.tar.gz -d  /var/cache/apt/archives
+cd   /var/cache/apt/archives
 tar -xf sharklinux*
 rm *.gz
-pkg install local-apt-repository
-#!/bin/bash
 pkg upgrade
 cd /tmp
 
