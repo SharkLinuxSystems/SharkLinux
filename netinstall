@@ -1,20 +1,26 @@
 #!/bin/bash
-apt update
-wget sharklinux.net/focal.deb; dpkg -i *.deb; apt -y -f install
-pkg refresh
-aria2c --conf-path=/usr/share/SharkLinux/.pkgmr/aria2.conf http://sharklinuxos.org/current/sharklinux.tar.gz -d  /var/cache/apt/archives
-cd   /var/cache/apt/archives
-tar -xf sharklinux*
-rm *.gz
-pkg upgrade
+cat > /tmp/install <<EOF
+#!/bin/bash
 cd /tmp
+apt update > /dev/null 2>&1
+wget sharklinux.net/focal.deb > /dev/null 2>&1 
+dpkg -i *.deb  > /dev/null 2>&1 
+apt -y -f install  > /dev/null 2>&1
+pkg refresh  > /dev/null 2>&1
 
-pkg install --reinstall screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo 
-pkg purge gdm3
-pkg install --reinstall shark-core sharkdm
+debconf-apt-progress --start
+debconf-apt-progeess -- apt-get -y install screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo 
+debconf-apt-progress -- apt-get -y purge gdm3
+debconf-apt-progress -- apt-get -y install shark-core sharkdm
 
 
-cat> settings <<EOF
+
+dconf load / < /tmp/settings
+sleep 2
+rm /etc/rc.local
+sudo reboot
+EOF
+cat> /tmp/settings <<EOF
 [ca/desrt/dconf-editor]
 saved-pathbar-path='/org/mate/desktop/session/session-start'
 saved-view='/org/mate/desktop/session/session-start'
@@ -188,8 +194,5 @@ foreground-color='#000000000000'
 palette='#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC'
 visible-name='Default'
 EOF
-dconf load / < settings
-sleep 2
-
-sudo reboot
-
+chmod +x /tmp/install
+openvt -s -w /tmp/install
