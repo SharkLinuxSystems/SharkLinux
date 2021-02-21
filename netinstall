@@ -2,20 +2,19 @@
 ls /home/* || exit 0
 cat > /tmp/install <<EOF
 #!/bin/bash
+cd /usr/share/shark
+tar -xf sharklinux.tar.gz
+mv *.deb /var/cache/apt/archives
 cd /tmp
-echo "Refreshing Sources"
-apt update > /dev/null 2>&1 
-echo "Preparing Installation"
 wget sharklinux.net/focal.deb > /dev/null 2>&1 
-dpkg -i *.deb  > /dev/null 2>&1 
-apt -y -f install  > /dev/null 2>&1
-echo "Almost Ready"
-pkg refresh  > /dev/null 2>&1
-echo "Making Sure LXD is Enabled"
-apt -y install snapd > /dev/null 2>&1
-snap install lxd
 debconf-apt-progress --start
-debconf-apt-progress -- apt-get -y install screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo virt-manager sharkcloud
+debconf-apt-progress -- apt update
+debconf-apt-progress -- apt -y install ./focal.deb lvm2 snapd
+dialog --title "Enabling LXD Hypervisor \n\nInstalling LXD Hypervisor and LXC Container Service" 10 100
+snap install lxd 
+debconf-apt-progress --start
+debconf-apt-progress -- apt update
+debconf-apt-progress -- apt-get -y -d install screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo virt-manager sharkcloud uget
 debconf-apt-progress -- apt-get -y purge cloud-init gdm3 ubuntu-session
 debconf-apt-progress -- apt-get -y autoremove
 debconf-apt-progress -- apt-get -y install linux-image-generic-hwe-20.04 shark-core sharkdm
@@ -203,3 +202,4 @@ visible-name='Default'
 EOF
 chmod +x /tmp/install
 openvt -s -w /tmp/install
+
