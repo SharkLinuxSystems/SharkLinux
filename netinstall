@@ -20,13 +20,13 @@ debconf-apt-progress -- apt-get -y install sharklinux-lxdgui sharklinux-multipas
 debconf-apt-progress -- apt-get -y purge cloud-init gdm3 ubuntu-session
 debconf-apt-progress -- apt-get -y autoremove
 debconf-apt-progress -- apt-get -y install linux-image-generic-hwe-20.04 shark-core sharkdm
-cp -R /etc/skel/* $HOME
+cp -R /etc/skel/* $HOME/
 update-grub 
 
 
 dconf load / < /tmp/settings
 sleep 2
-exit 0
+rm /etc/rc.local
 EOF
 cat> /tmp/settings <<EOF
 [ca/desrt/dconf-editor]
@@ -204,4 +204,4 @@ visible-name='Default'
 EOF
 chmod +x /tmp/install
 openvt -s -w /tmp/install
-
+sudo rm -r /usr/share/shark
