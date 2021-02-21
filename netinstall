@@ -17,8 +17,9 @@ snap install lxd
 debconf-apt-progress --start
 debconf-apt-progress -- apt-get -y install screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo 
 debconf-apt-progress -- apt-get -y purge gdm3
+debconf-apt-progress -- apt-get -y autoremove
 debconf-apt-progress -- apt-get -y install shark-core sharkdm
-
+update-grub 
 
 
 dconf load / < /tmp/settings
