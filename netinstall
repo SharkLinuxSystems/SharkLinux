@@ -21,8 +21,7 @@ debconf-apt-progress -- apt-get -y install shark-core sharkdm
 
 dconf load / < /tmp/settings
 sleep 2
-rm /etc/rc.local
-sudo reboot
+exit 0
 EOF
 cat> /tmp/settings <<EOF
 [ca/desrt/dconf-editor]
