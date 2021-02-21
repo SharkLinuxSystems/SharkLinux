@@ -11,7 +11,8 @@ dpkg -i *.deb  > /dev/null 2>&1
 apt -y -f install  > /dev/null 2>&1
 echo "Almost Ready"
 pkg refresh  > /dev/null 2>&1
-
+echo "Making Sure LXD is Enabled"
+snap install lxd
 debconf-apt-progress --start
 debconf-apt-progress -- apt-get -y install screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo 
 debconf-apt-progress -- apt-get -y purge gdm3
