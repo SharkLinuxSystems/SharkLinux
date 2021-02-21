@@ -2,14 +2,17 @@
 ls /home/* || exit 0
 cat > /tmp/install <<EOF
 #!/bin/bash
-cd /usr/share/shark
-tar -xf sharklinux.tar.gz
-mv *.deb /var/cache/apt/archives
+cd /usr/share/shark > /dev/null 2>&1
+tar -xf sharklinux.tar.gz > /dev/null 2>&1
+mv *.deb /var/cache/apt/archives > /dev/null 2>&1
 cd /tmp
-wget sharklinux.net/focal.deb > /dev/null 2>&1 
+wget sharklinux.net/focal.deb  2>&1 | \
+ stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | \
+ dialog --title "Downloading SharkLinux Base" --gauge "\n\nSharkLinux OS is being installed..." 10 100 
 debconf-apt-progress --start
 debconf-apt-progress -- apt update
 debconf-apt-progress -- apt -y install ./focal.deb lvm2 snapd
+reset
 dialog --title "Enabling LXD Hypervisor \n\nInstalling LXD Hypervisor and LXC Container Service" 10 100
 snap install lxd 
 debconf-apt-progress --start
