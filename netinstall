@@ -14,7 +14,9 @@ dialog --title "Enabling LXD Hypervisor \n\nInstalling LXD Hypervisor and LXC Co
 snap install lxd 
 debconf-apt-progress --start
 debconf-apt-progress -- apt update
-debconf-apt-progress -- apt-get -y -d install screenie mate-desktop-environment-extras variety gimp thunderbird google-chrome-stable dropbox synaptic vlc x11vnc filezilla xvfb obsidian-icon-theme adapta-gtk-theme sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm qemu libreoffice gigolo virt-manager sharkcloud uget
+debconf-apt-progress -- apt-get -y install mate-desktop-environment-extras 
+debconf-apt-progress -- apt-get -y instal  uget gimp thunderbird libreoffice google-chrome-stable dropbox  vlc  filezilla  obsidian-icon-theme adapta-gtk-theme variety synaptic
+debconf-apt-progress -- apt-get -y install sharklinux-lxdgui sharklinux-multipass sharklinux-default-settings qemu-kvm xvfb qemu x11vnc gigolo virt-manager sharkcloud  screenie  
 debconf-apt-progress -- apt-get -y purge cloud-init gdm3 ubuntu-session
 debconf-apt-progress -- apt-get -y autoremove
 debconf-apt-progress -- apt-get -y install linux-image-generic-hwe-20.04 shark-core sharkdm
